@@ -1,0 +1,23 @@
+class Solution
+{
+    
+    public static BigInteger findCatalan(int n)
+    {
+     
+       BigInteger [] arr= new BigInteger [n+1];
+       BigInteger bg = new BigInteger("1");
+      	arr[0]=bg;
+    	arr[1]=bg;
+        for(int i=2; i<=n; i++){
+            
+          arr[i]=BigInteger.ZERO;
+          
+          for(int j=0; j<i; j++){
+              arr[i]=arr[i].add(arr[j].multiply(arr[i-j-1]));
+          }
+        }  		
+        
+  return arr[n];
+        
+    }
+}
