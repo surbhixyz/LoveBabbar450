@@ -1,0 +1,38 @@
+
+class Solution{
+    
+    static int matrixMultiplication(int N, int arr[])
+    {
+        int i=1;
+        int j=N-1;
+        
+        int[][] dp=new int[N+1][N+1];
+       for(int m=0; m<N+1; m++){
+           for(int n=0; n<N+1; n++){
+               dp[m][n]=-1;
+           }
+       }
+        
+      return helper(arr, i, j,dp);
+    }
+    
+    private static int helper(int [] arr, int i, int j, int [][]dp){
+        
+        if(i>=j){
+            return 0;
+        }
+        
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+         int min=Integer.MAX_VALUE;
+        
+        for(int k=i; k<j; k++){
+            
+        int temp=helper(arr, i, k, dp)+helper(arr, k+1, j, dp)+arr[i-1]*arr[k]*arr[j];
+        min=Math.min(temp,min);
+       
+        }
+        return dp[i][j]=min;
+    }
+}
