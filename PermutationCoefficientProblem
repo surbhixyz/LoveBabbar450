@@ -2,11 +2,11 @@ public class Solution {
      
     static int permutationCoeff(int n, int k)
     {
-        int []fact = new int[n+1];
-        fact[0] = 1;
+        int []dp = new int[n+1];
+        dp[0] = 1;
 
         for (int i = 1; i <= n; i++)
-            fact[i] = i * fact[i - 1];
+            dp[i] = i * dp[i - 1];
    
-        return fact[n] / fact[n - k];
+        return dp[n] / dp[n - k];
     }
