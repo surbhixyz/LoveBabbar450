@@ -1,0 +1,30 @@
+class Solution
+{
+    long countWays(int n,int k){
+   
+    if(n==0){
+        return 0;
+    }
+    
+    if(n==1){
+        return k;
+    }
+    
+    if(n==2){
+        return k*k;
+    }
+    
+        int mod=1000000007;
+        long same=k;
+        long different=k*(k-1);
+        long total=(same+different)%mod;
+        
+        for(int i=3; i<=n; i++){
+            same=different;
+            different=total*(k-1);
+            total=(same+different)%mod;
+        }
+        
+        return total;
+    }
+}
