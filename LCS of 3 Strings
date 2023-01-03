@@ -1,0 +1,44 @@
+class Solution 
+{ 
+    int LCSof3(String A, String B, String C, int n1, int n2, int n3) 
+    { 
+        int [][][] dp= new int [n1+1][n2+1][n3+1];
+        
+        for(int i=0; i<=n1; i++){
+            for(int j=0; j<=n2; j++){
+                for(int k=0; k<=n3; k++){
+                dp[i][j][k]=-1;
+            }
+            }
+        }
+        int ans= helper(A, B, C, n1, n2, n3, dp);
+        
+        if(ans<0){
+            return 0;
+        }
+        else{
+            return ans;
+        }
+        
+    }
+    
+    private static int helper(String s1, String s2, String s3, int x, int y, int z, int [][][] dp){
+        if(x==0 || y==0 || z==0){
+            return 0;
+        }
+        
+        if(dp[x][y][z]!=-1){
+            return dp[x][y][z];
+        }
+        
+        if(s1.charAt(x-1)==s2.charAt(y-1) && s2.charAt(y-1)==s3.charAt(z-1)){
+            dp[x][y][z]=1+helper(s1, s2, s3,  x-1, y-1, z-1, dp);
+        }
+        
+        else{
+            dp[x][y][z]=Math.max(helper( s1, s2, s3, x, y-1, z, dp), Math.max(helper(s1, s2, s3, x-1, y, z, dp), helper(s1, s2, s3, x, y, z-1, dp)));
+        }
+        
+        return dp[x][y][z];
+    }
+} 
