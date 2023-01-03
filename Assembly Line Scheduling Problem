@@ -1,0 +1,19 @@
+class Solution {
+
+    public static int carAssembly(int n, int[][] a, int[][] T, int[] e, int[] x) {
+    
+        int [] line1= new int [n];
+        int [] line2= new int [n];
+        
+        line1[0]=e[0]+a[0][0];
+        line2[0]=e[1]+a[1][0];
+        
+        for(int i=1; i<n; i++){
+        
+            line1[i]=Math.min(line1[i-1]+a[0][i], line2[i-1]+a[0][i]+T[1][i]);
+            line2[i]=Math.min(line2[i-1]+a[1][i], line1[i-1]+a[1][i]+T[0][i]);
+        }
+        
+        return Math.min(line1[n-1]+x[0], line2[n-1]+x[1]);
+    }
+}    
