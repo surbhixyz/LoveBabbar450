@@ -1,0 +1,68 @@
+class Solution 
+{
+    
+    static int longestSubsequence(int size, int s[])
+    {   int [] s1;
+        s1=Sort(s, s.length);
+        int m=s1.length;
+         int n=s.length;
+        return lcs(n, m, s, s1);
+    }
+    
+    private static int[] Sort(int [] s ,int n){
+        // Storing and Sorting unique elements.
+        SortedSet<Integer> hs = new TreeSet<Integer>();
+        for (int i = 0; i < n; i++)
+            hs.add(s[i]);
+        int lis[] = new int[hs.size()];
+        int k = 0;
+        // Storing all the unique values in a sorted manner.
+        for (int val : hs) {
+            lis[k] = val;
+            k++;
+        }
+        return lis;
+    
+    }
+    
+    private static int lcs(int x, int y, int [] s1, int [] s2){
+        int [][] dp= new int [x+1][y+1];
+        
+        for(int i=0; i<=x; i++){
+            for(int j=0; j<=y; j++){
+                dp[i][j]=-1;
+            }
+        }
+        int ans= helper(x,y,s1,s2,dp);
+        
+        if(ans<0){
+            return 0;
+        }
+        else{
+            return ans;
+        }
+    }
+    
+    
+    private static int helper(int x, int y,int [] s1, int [] s2, int [][]dp){
+        if(x==0 || y==0){
+            return 0;
+        }
+        
+        if(dp[x][y]!=-1){
+            return dp[x][y];
+        }
+        
+        if(s1[x-1]==s2[y-1]){
+            dp[x][y]=1+helper(x-1, y-1, s1, s2, dp);
+        }
+        
+        else{
+            dp[x][y]=Math.max(helper(x, y-1, s1, s2, dp), helper(x-1, y, s1, s2, dp));
+        }
+        
+        return dp[x][y];
+    }
+
+
+}
