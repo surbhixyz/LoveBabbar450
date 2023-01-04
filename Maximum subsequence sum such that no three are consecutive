@@ -1,0 +1,25 @@
+/*
+    We need to generate answer at different indexes depending on previous indexes
+    
+    pattern:
+    dp[i] will be the maximum out of the three cases
+        1. dp[i-1]
+        2. arr[i]+dp[i-2]
+        3. arr[i]+arr[i-1]+dp[i-3]
+*/
+
+class Solution {
+    int findMaxSum(int arr[], int n) {
+        
+        int [] dp= new int [n];
+        dp[0]=arr[0];
+        dp[1]=arr[0]+arr[1];
+        dp[2]=Math.max(arr[0]+arr[1],Math.max(arr[2]+arr[0],arr[2]+arr[1]));
+        
+        for(int i=3; i<n; i++){
+            dp[i]=Math.max(dp[i-1],Math.max(arr[i]+dp[i-2],arr[i]+arr[i-1]+dp[i-3]));
+        }
+        
+        return dp[n-1];
+    }
+}
