@@ -1,0 +1,34 @@
+class Solution{
+    static int maximumPath(int N, int Matrix[][])
+    {       
+        int [][] dp= new int [N+1][N+1];
+        for(int i=0; i<N;i++){
+            for(int j=0; j<N;j++){
+                dp[i][j]=-1;
+            }
+        }
+        
+            int max=0;
+            for(int c=0; c<N; c++){
+                int ans=helper(N, Matrix, 0, c, dp);
+               max= Math.max(max,ans);
+            }
+        return max;
+    }
+    
+    private static int helper(int N, int [][] Matrix, int i, int j, int [][]dp){
+        
+        if(j<0|| i>N || j>N || i<0){
+            return 0;
+        }
+        
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        
+       
+        dp[i][j]=Matrix[i][j]+Math.max(helper(N,Matrix,i+1, j, dp), Math.max(helper(N,Matrix,i+1, j-1, dp), helper(N,Matrix,i+1, j+1, dp)));
+        
+        return dp[i][j];
+    }
+}
