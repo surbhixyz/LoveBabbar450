@@ -1,0 +1,32 @@
+class Solution {
+    int removals(int[] arr, int n, int k) {
+
+        Arrays.sort(arr);
+
+        int[][] dp=new int[n+1][n+1];
+
+        for(int i=0;i<=n;i++){
+          for(int j=0; j<=n; j++){
+            dp[i][j]=-1;
+           }
+        }
+
+        return find(arr,n,k,dp,0,n-1);
+
+    }
+
+    int find(int[] arr,int n,int k,int[][] dp,int i,int j){
+
+        if(i>j) {
+        return Integer.MAX_VALUE;}
+
+        if(arr[j]-arr[i]<=k) {
+        return n-(j-i)-1;}
+
+        if(dp[i][j]!=-1) {
+        return dp[i][j];}
+
+        return dp[i][j]=Math.min(find(arr,n,k,dp,i+1,j),find(arr,n,k,dp,i,j-1));
+    }
+
+}
